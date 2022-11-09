@@ -1,0 +1,104 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://raw.githubusercontent.com/j4m-can/hpct-parts/main/schemas/filedata.json",
+    "title": "FileData object schema",
+    "description": "FileData object schema",
+    "type": "object",
+    "required": [
+        "checksum",
+        "data",
+        "dtype",
+        "gid",
+        "group",
+        "mode",
+        "name",
+        "owner",
+        "path",
+        "size",
+        "uid"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "checksum": {
+            "title": "sha224 Checksum of Data",
+            "description": "sha224 checksum of data (binary)",
+            "type": "string",
+            "default": ""
+        },
+        "data": {
+            "title": "Data",
+            "description": "Data as a string (binary is base64 encoded if dtype == 'b')",
+            "type": "string",
+            "default": ""
+        },
+        "dtype": {
+            "title": "Data type",
+            "description": "Data type: [t]ext or [b]inary",
+            "type": "string",
+            "default": ""
+        },
+        "gid": {
+            "title": "Group Id",
+            "description": "Numeric group id associated with file",
+            "type": "integer",
+            "default": -1
+        },
+        "group": {
+            "title": "Group Name",
+            "description": "Group name associated with file",
+            "type": "string",
+            "default": "",
+        },
+        "mode": {
+            "title": "File Mode",
+            "description": "File mode (e.g., permission)",
+            "type": "integer",
+            "default": 0
+        },
+        "name": {
+            "title": "File Name",
+            "description": "File name without path information",
+            "type": "string",
+            "default": ""
+        },
+        "owner": {
+            "title": "Owner Name",
+            "description": "Owner name associated with file",
+            "type": "string",
+            "default": ""
+        },
+        "path": {
+            "title": "Path",
+            "description": "Full file path",
+            "type": "string",
+            "default": ""
+        },
+        "size": {
+            "title": "Size",
+            "description": "Size in number of bytes",
+            "type": "integer",
+            "default": 0
+        },
+        "uid": {
+            "title": "User Id",
+            "description": "Numeric user id of owner associated with file",
+            "type": "integer",
+            "default": -1
+        }
+    },
+    "examples": [
+        {
+            "checksum": "2f05477fc24bb4faefd86517156dafdecec45b8ad3cf2522a563582b",
+            "data": "hello world",
+            "dtype": "t",
+            "gid": 0,
+            "group": "root",
+            "mode": 420,
+            "name": "hello",
+            "owner": "root",
+            "path": "/tmp/hello",
+            "size": 11,
+            "uid": 0
+        }
+    ]
+}

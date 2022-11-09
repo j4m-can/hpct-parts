@@ -1,0 +1,48 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://raw.githubusercontent.com/j4m-can/hpct-parts/main/schemas/minifiledata.json",
+    "title": "MiniFileData object schema",
+    "description": "MiniFileData object schema",
+    "type": "object",
+    "required": [
+        "data",
+        "dtype",
+        "name",
+        "path",
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "data": {
+            "title": "Data",
+            "description": "Data as a string (binary is base64 encoded if dtype == 'b')",
+            "type": "string",
+            "default": ""
+        },
+        "dtype": {
+            "title": "Data type",
+            "description": "Data type: [t]ext or [b]inary",
+            "type": "string",
+            "default": ""
+        },
+        "name": {
+            "title": "File Name",
+            "description": "File name without path information",
+            "type": "string",
+            "default": ""
+        },
+        "path": {
+            "title": "Path",
+            "description": "Full file path",
+            "type": "string",
+            "default": ""
+        },
+    },
+    "examples": [
+        {
+            "data": "hello world",
+            "dtype": "t",
+            "name": "hello",
+            "path": "/tmp/hello",
+        }
+    ]
+}
