@@ -68,7 +68,7 @@ class FullManager:
 
         if self.systemd_services:
             for name in self.systemd_services:
-                if not _systemctl("is-enabled", name, quiet=True):
+                if not systemd._systemctl("is-enabled", name, quiet=True):
                     return False
 
         if self.snaps:
