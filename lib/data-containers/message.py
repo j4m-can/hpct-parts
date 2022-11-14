@@ -26,7 +26,7 @@ class Message:
     def _dumps(self):
         bdata = self.bdata
         if bdata != None:
-            bdata = base64.b85encode(bdata).decode("utf-8")
+            bdata = base64.b64encode(bdata).decode("utf-8")
 
         return json.dumps(
             {
@@ -45,7 +45,7 @@ class Message:
         d = json.loads(encs)
         bdata = d.get("bdata", None)
         if bdata != None:
-            d["bdata"] = base64.b85decode(bdata.encode("utf-8"))
+            d["bdata"] = base64.b64decode(bdata.encode("utf-8"))
         return d
 
     def set_nonce(self):
