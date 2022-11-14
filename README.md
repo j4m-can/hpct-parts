@@ -103,3 +103,83 @@ class Client(CharmBase):
         fd = FileData(appdata.get("hosts_file"))
         fd.save(fd.path, fd.mode, fd.owner, fd.group)
 ```
+
+## JSON Schemas
+
+JSON schemas are provided for the following:
+
+* `FileData` -> `filedata.json`
+* `MiniFileData` -> `minifiledata.json`
+
+### How to Use/Reuse Schemas
+
+A schema may be used:
+
+1. by dropping it into an another schema (with some massaging)
+1. by referencing it at an external location/url
+
+The preferred approach is by reference. For example, a schema
+for two files (`file-a`, `file-b`) referencing the `filedata.json`
+schema:
+
+```
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "",
+  "title": "Example Use of filedata Schema",
+  "description": "Example use of filedata schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "file-a",
+    "file-b"
+  ],
+  "properties": {
+    "file-a": {
+      "$ref": "#filedata"
+    },
+    "file-b": {
+      "$ref": "#filedata"
+    }
+  },
+  "$defs": {
+    "filedata": {
+      "$anchor": "filedata",
+      "$ref": "https://raw.githubusercontent.com/j4m-can/hpct-parts/main/schemas/filedata.json"
+    }
+  }
+}
+```
+
+A json file using, and validated by, the above:
+
+```
+{
+  "file-a": {
+    "checksum": "2f05477fc24bb4faefd86517156dafdecec45b8ad3cf2522a563582b",
+    "data": "hello world",
+    "dtype": "t",
+    "gid": 0,
+    "group": "root",
+    "mode": 420,
+    "name": "hello",
+    "owner": "root",
+    "path": "/tmp/hello",
+    "size": 11,
+    "uid": 0
+  },
+  "file-b": {
+    "checksum": "2f05477fc24bb4faefd86517156dafdecec45b8ad3cf2522a563582b",
+    "data": "cert",
+    "dtype": "t",
+    "gid": 0,
+    "group": "root",
+    "mode": 420,
+    "name": "hello",
+    "owner": "root",
+    "path": "/tmp/cert",
+    "size": 11,
+    "uid": 0
+  }
+}
+```
