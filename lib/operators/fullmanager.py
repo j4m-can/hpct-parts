@@ -3,8 +3,8 @@
 #
 # fullmanager.py
 
-from charms.operator_libs_linux.v0 import passwd
-from charms.operator_libs_linux.v1 import apt, snap, systemd
+from charms.operator_libs_linux.v0 import apt, passwd
+from charms.operator_libs_linux.v1 import snap, systemd
 
 
 class FullManager:
