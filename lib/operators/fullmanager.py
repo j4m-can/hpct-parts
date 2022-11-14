@@ -43,7 +43,8 @@ class FullManager:
         if self.packages:
             try:
                 apt.update()
-                apt.add_package(self.packages)
+                for name in self.packages:
+                    apt.add_package(name)
             except:
                 raise Exception(f"failed to install package ({name})")
 
