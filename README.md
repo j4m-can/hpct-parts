@@ -2,7 +2,9 @@
 
 This repository holds parts that can be used/reused.
 
-## `FileData` (and `MiniFileData`)
+## Data Containers
+
+### `FileData` (and `MiniFileData`)
 
 `FileData` and `MiniFileData` both encapsulate functionality to load,
 save, and share files. `FileData` provides meta-data in addition to
@@ -106,7 +108,7 @@ class Client(CharmBase):
 
 ## JSON Schemas
 
-JSON schemas are provided for the following:
+JSON schemas are provided for the following data containers:
 
 * `FileData` -> `filedata.json`
 * `MiniFileData` -> `minifiledata.json`
