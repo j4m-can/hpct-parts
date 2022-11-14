@@ -1,0 +1,90 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://raw.githubusercontent.com/j4m-can/hpct-parts/main/schemas/message.json",
+    "title": "Message Object Schema",
+    "description": "Message object schema.",
+    "type": "object",
+    "required": [
+        "bdata",
+        "comment",
+        "dst",
+        "dtype",
+        "nonce",
+        "src",
+        "tag",
+        "tdata"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "bdata": {
+            "title": "Binary Data",
+            "description": "Binary data as a base64 encoded string (for dtype == 'b').",
+            "type": "string",
+            "default": ""
+        },
+        "comment": {
+            "title": "Comment",
+            "description": "Comment.",
+            "type": "string",
+            "default": ""
+        },
+        "dst": {
+            "title": "Destination",
+            "description": "Destination.",
+            "type": "string",
+            "default": ""
+        },
+        "dtype": {
+            "title": "Data type",
+            "description": "Data type: [t]ext or [b]inary",
+            "type": "string",
+            "default": ""
+        },
+        "nonce": {
+            "title": "Nonce",
+            "description": "Nonce.",
+            "type": "string",
+            "default": ""
+        },
+        "src": {
+            "title": "Source",
+            "description": "Source.",
+            "type": "string",
+            "default": ""
+        },
+        "tag": {
+            "title": "Tag",
+            "description": "Tag.",
+            "type": "string",
+            "default": ""
+        },
+        "tdata": {
+            "title": "Text Data",
+            "description": "Text data as a string (for dtype == 't').",
+            "type": "string",
+            "default": ""
+        },
+    },
+    "examples": [
+        {
+            "bdata": null,
+            "comment": "Just testing",
+            "dst": "node-b",
+            "dtype": "t",
+            "nonce": "Tgfc_sZiw_LwfNmCRXYxsMH2L-zCjFTpDepLvbdK_10",
+            "src": "node-a",
+            "tag": "text test",
+            "tdata": "hello world. 1-2-3."
+        },
+        {
+            "bdata": "aGVsbG8gd29ybGQuIDEtMi0zLg==",
+            "comment": "Just testing",
+            "dst": "node-2",
+            "dtype": "b",
+            "nonce": "mmrvkK8aViZMVb6xm-1zE5HIFhZf7zd3zDViqOMXjkk",
+            "src": "node-1",
+            "tag": "binary test",
+            "tdata": null
+        }
+    ]
+}
