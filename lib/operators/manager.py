@@ -4,14 +4,13 @@
 # manager.py
 
 from charms.operator_libs_linux.v0 import passwd
-from charms.operator_libs_linux.v1 import apt, snap, systemd
+from charms.operator_libs_linux.v1 import apt, systemd
 
 
 class Manager:
 
     packages = []
     systemd_services = []
-    snaps = []
 
     def __init__(self):
         pass
@@ -25,17 +24,11 @@ class Manager:
         for name in self.systemd_services:
             systemd.service_pause(name)
 
-        if self.snaps:
-            pass
-
     def enable(self):
         """Enable services."""
 
         for name in self.systemd_services:
             systemd.service_resume(name)
-
-        if self.snaps:
-            pass
 
     def install(self):
         """Install packages."""
@@ -47,21 +40,6 @@ class Manager:
             except:
                 raise Exception(f"failed to install package ({name})")
 
-        if self.snaps:
-            try:
-                cache = snap.SnapCache()
-                for d in self.snaps:
-                    _snap = cache[d["name"]]
-                    _snap.ensure(
-                        d["version"],
-                        classic=d.get("classic", False),
-                        channel=d.get("channel", ""),
-                        cohort=d.get("cohort", ""),
-                    )
-                snap.hold_refresh()
-            except:
-                raise Exception(f"failed to install snap ({d['name']})")
-
     def is_enabled(self):
         """Check enabled status of services."""
 
@@ -69,15 +47,6 @@ class Manager:
             for name in self.systemd_services:
                 if not _systemctl("is-enabled", name, quiet=True):
                     return False
-
-        if self.snaps:
-            cache = snap.SnapCache()
-            for d in self.snaps:
-                name = d["name"]
-                _snap = cache[name]
-                for svcname in d.get("services", []):
-                    if not _snap.service[svcname]["enabled"]:
-                        return False
 
         return True
 
@@ -89,14 +58,6 @@ class Manager:
                 if not self.apt.DebianPackage.from_installed_package(name).present:
                     return False
 
-        if self.snaps:
-            cache = snap.SnapCache()
-            for d in self.snaps:
-                name = d["name"]
-                _snap = cache[name]
-                if not _snap.present:
-                    return False
-
         return True
 
     def is_running(self):
@@ -106,15 +67,6 @@ class Manager:
             for name in self.systemd_services:
                 if not systemd.service_running(name):
                     return False
-
-        if self.snaps:
-            cache = snap.SnapCache()
-            for d in snaps:
-                name = d["name"]
-                _snap = cache[name]
-                for svcname in d.get("services", []):
-                    if not _snap.service[svcname]["active"]:
-                        return False
 
         return True
 
@@ -130,14 +82,8 @@ class Manager:
         for name in self.systemd_services:
             systemd.service_start(name)
 
-        for name in self.snaps:
-            snap.start(name)
-
     def stop(self):
         """Stop services."""
 
         for name in self.systemd_services:
             systemd.service_stop(name)
-
-        for name in self.snaps:
-            snap.stop(name)
